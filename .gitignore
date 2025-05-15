@@ -1,0 +1,7 @@
+touch .gitignore
+
+__pycache__/
+*.pkl
+*.pdf
+*.csv
+.streamlit/secrets.toml
