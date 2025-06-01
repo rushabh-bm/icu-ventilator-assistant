@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
+}
+
+.container {
+  display: flex;
+  background: #fff;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  width: 900px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.left-section {
+  flex: 1;
+  background: #eaf6ff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-section .icon {
+  width: 60px;
+  margin-bottom: 30px;
+}
+
+.doctors {
+  display: flex;
+  gap: 20px;
+}
+
+.doctor {
+  width: 60px;
+  height: 120px;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+}
+
+.male {
+  background: url('https://img.icons8.com/color/96/doctor-male.png') no-repeat center/contain;
+}
+
+.female {
+  background: url('https://img.icons8.com/color/96/doctor-female.png') no-repeat center/contain;
+}
+
+.right-section {
+  flex: 1;
+  padding: 40px;
+}
+
+.right-section h2 {
+  margin-bottom: 10px;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="email"],
+input[type="password"] {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  padding: 12px;
+  background-color: #008cba;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.alt-login {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.alt-login button {
+  flex: 1;
+  margin: 5px;
+  background: #eee;
+  color: #333;
+}

@@ -7,9 +7,7 @@ import os
 
 app = FastAPI()
 
-# Load model
 model = joblib.load("tv_predictor_model.pkl")
-
 
 class ICUInput(BaseModel):
     HeartRate: float
@@ -20,12 +18,16 @@ class ICUInput(BaseModel):
     PaCO2: float
     TV_previous: float
     PEEP_previous: float
+    Weight: float
+    Height: float
+    BMI: float
 
 @app.post("/predict_tv")
 def predict_tv(data: ICUInput):
     input_data = np.array([
         data.HeartRate, data.SpO2, data.RespiratoryRate, data.pH,
-        data.PaO2, data.PaCO2, data.TV_previous, data.PEEP_previous
+        data.PaO2, data.PaCO2, data.TV_previous, data.PEEP_previous,
+        data.Weight, data.Height, data.BMI
     ]).reshape(1, -1)
 
     prediction = model.predict(input_data)[0]
@@ -41,12 +43,17 @@ def predict_tv(data: ICUInput):
         "PaCO2": data.PaCO2,
         "TV_previous": data.TV_previous,
         "PEEP_previous": data.PEEP_previous,
+        "Weight": data.Weight,
+        "Height": data.Height,
+        "BMI": data.BMI,
         "Predicted_TV": result
     }
     df = pd.DataFrame([log_data])
     if not os.path.exists("icu_log.csv"):
         df.to_csv("icu_log.csv", index=False)
     else:
-        df.to_csv("icu_log.csv", mode='a', index=False, header=False)
+        df.to_csv("icu_log.csv", mode='a', index=False, header=not os.path.exists("icu_log.csv"))
+
+
 
     return {"recommended_tidal_volume": result}

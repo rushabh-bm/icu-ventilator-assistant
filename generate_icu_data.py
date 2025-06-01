@@ -4,7 +4,14 @@ import numpy as np
 def simulate_icu_data(num_samples=1000):
     np.random.seed(42)
 
+    weight = np.random.normal(70, 15, num_samples).clip(40, 150)  # kg
+    height = np.random.normal(170, 10, num_samples).clip(140, 200)  # cm
+    bmi = weight / ((height / 100) ** 2)
+
     data = {
+        'Weight': weight,
+        'Height': height,
+        'BMI': bmi,
         'HeartRate': np.random.normal(85, 10, num_samples).clip(60, 130),
         'SpO2': np.random.normal(95, 2, num_samples).clip(85, 100),
         'RespiratoryRate': np.random.normal(20, 5, num_samples).clip(10, 40),
@@ -17,12 +24,14 @@ def simulate_icu_data(num_samples=1000):
 
     df = pd.DataFrame(data)
 
-    # Simulated target: optimal TV based on some formula + noise
+    # Target with improved formula incorporating weight and BMI effects
     df['TV_recommendation'] = (
         df['TV_previous'] +
         (100 - df['SpO2']) * 1.5 +
         (7.4 - df['pH']) * 100 +
         (df['PaCO2'] - 40) * 2 +
+        (df['Weight'] - 70) * 0.5 +       # weight effect
+        (22 - df['BMI']) * 5 +            # BMI effect, assuming 22 ideal
         np.random.normal(0, 10, num_samples)
     ).clip(300, 600)
 
