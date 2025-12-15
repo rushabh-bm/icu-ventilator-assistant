@@ -36,7 +36,7 @@ def simulate_icu_data(num_samples=1000):
     ).clip(300, 600)
 
     df.to_csv("icu_simulated_data.csv", index=False)
-    print("✅ Simulated ICU data saved to icu_simulated_data.csv")
+    print(" Simulated ICU data saved to icu_simulated_data.csv")
 
 if __name__ == "__main__":
     simulate_icu_data()
